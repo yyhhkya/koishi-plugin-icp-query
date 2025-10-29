@@ -2,6 +2,9 @@
   "name": "koishi-plugin-icp-query",
   "description": "实时ICP备案查询，数据来源：beian.miit.gov.cn",
   "version": "0.0.1",
+  "contributors": [
+    "Yy <1163635725@qq.com>"
+  ],
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -9,13 +12,16 @@
     "dist"
   ],
   "license": "MIT",
-  "scripts": {},
+  "homepage": "https://isyyo.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yyhhkya/koishi-plugin-icp-query.git"
+  },
   "keywords": [
     "chatbot",
     "koishi",
     "plugin"
   ],
-  "devDependencies": {},
   "peerDependencies": {
     "koishi": "^4.18.7"
   }
