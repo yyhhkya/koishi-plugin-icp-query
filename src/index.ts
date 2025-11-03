@@ -13,10 +13,11 @@ export function apply(ctx: Context) {
       if (!domain) return '请输入要查询的域名'
 
       try {
-        // 简单的域名格式验证
-        const domainRegex = /^[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$/
+        // 改进的域名格式验证，支持国际化域名(IDN)
+        const domainRegex = /^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]$|^(?:[\u4e00-\u9fa5a-zA-Z0-9](?:[\u4e00-\u9fa5a-zA-Z0-9-]{0,61}[\u4e00-\u9fa5a-zA-Z0-9])?\.)+[\u4e00-\u9fa5a-zA-Z0-9][\u4e00-\u9fa5a-zA-Z0-9-]{0,61}[\u4e00-\u9fa5a-zA-Z0-9]$/
+        
         if (!domainRegex.test(domain)) {
-          return '域名格式不正确，请输入有效的域名'
+          return '域名格式不正确，请输入有效的域名\n支持格式：example.com、中文.中国、test.中文网 等'
         }
 
         const response = await ctx.http.get('https://icp.isyyo.com/query', {
@@ -24,7 +25,7 @@ export function apply(ctx: Context) {
         })
 
         if (!response.success || response.code !== 200) {
-          return `查询失败: ${response.msg || '未知错误'}`
+          return `查询失败: ${response.msg `, 请重试` || '未知错误'}`
         }
 
         const list = response.params?.list
@@ -51,5 +52,4 @@ export function apply(ctx: Context) {
         return `ICP查询失败: ${error.message}`
       }
     })
-
 }
